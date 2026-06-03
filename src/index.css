@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: var(--canvas-bg);
+  --color-surface: var(--surface-bg);
+  --color-brand: var(--primary-color);
+  --color-brand-hover: var(--primary-color-hover);
+  --color-text-main: var(--text-primary);
+  --color-text-muted: var(--text-secondary);
+  --color-border-main: var(--border-color);
+  
+  --font-heading: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --canvas-bg: #F8FAFC;
+  --surface-bg: #FFFFFF;
+  --primary-color: #4F46E5;
+  --primary-color-hover: #4338CA;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --border-color: #E2E8F0;
+}
+
+.dark {
+  --canvas-bg: #0F172A;
+  --surface-bg: #1E293B;
+  --primary-color: #6366F1;
+  --primary-color-hover: #4f46e5;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --border-color: #334155;
+}
+
+body {
+  background-color: var(--canvas-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar styling for premium look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--canvas-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
