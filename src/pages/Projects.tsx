@@ -55,6 +55,10 @@ export default function Projects() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  // Submitting States
+  const [isSubmittingCreate, setIsSubmittingCreate] = useState(false);
+  const [isSubmittingEdit, setIsSubmittingEdit] = useState(false);
+
   // Form structures
   interface ProjectFormValues {
     name: string;
@@ -130,19 +134,21 @@ export default function Projects() {
   }, [fetchProjects]);
 
   const handleCreate = async (data: ProjectFormValues) => {
-    setIsCreateOpen(false);
-    resetCreate();
+    setIsSubmittingCreate(true);
     try {
       await api.post("/projects", {
         ...data,
         deadline: new Date(data.deadline),
       });
       toast.success("Project created successfully!");
-      fetchProjects();
+      setIsCreateOpen(false);
+      resetCreate();
+      await fetchProjects();
     } catch (error) {
       const err = error as { response?: { data?: { message?: string } } };
       toast.error(err.response?.data?.message || "Failed to create project");
-      fetchProjects();
+    } finally {
+      setIsSubmittingCreate(false);
     }
   };
 
@@ -162,9 +168,7 @@ export default function Projects() {
   const handleUpdate = async (data: ProjectFormValues) => {
     if (!selectedProject) return;
 
-    setIsEditOpen(false);
-    setSelectedProject(null);
-    resetEdit();
+    setIsSubmittingEdit(true);
 
     const prevProjects = [...projects];
     setProjects((prev) =>
@@ -187,11 +191,16 @@ export default function Projects() {
         deadline: new Date(data.deadline),
       });
       toast.success("Project updated successfully!");
-      fetchProjects();
+      setIsEditOpen(false);
+      setSelectedProject(null);
+      resetEdit();
+      await fetchProjects();
     } catch (error) {
       setProjects(prevProjects);
       const err = error as { response?: { data?: { message?: string } } };
       toast.error(err.response?.data?.message || "Failed to update project");
+    } finally {
+      setIsSubmittingEdit(false);
     }
   };
 
@@ -467,10 +476,18 @@ export default function Projects() {
             error={errorsCreate.deadline?.message}
           />
           <div className="flex justify-end gap-3 pt-2">
-            <Button type="button" variant="outline" onClick={() => { setIsCreateOpen(false); resetCreate(); }}>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSubmittingCreate}
+              onClick={() => {
+                setIsCreateOpen(false);
+                resetCreate();
+              }}
+            >
               Cancel
             </Button>
-            <Button type="submit">
+            <Button type="submit" isLoading={isSubmittingCreate}>
               Create Project
             </Button>
           </div>
@@ -514,10 +531,18 @@ export default function Projects() {
             )}
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <Button type="button" variant="outline" onClick={() => { setIsEditOpen(false); resetEdit(); }}>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSubmittingEdit}
+              onClick={() => {
+                setIsEditOpen(false);
+                resetEdit();
+              }}
+            >
               Cancel
             </Button>
-            <Button type="submit">
+            <Button type="submit" isLoading={isSubmittingEdit}>
               Save Changes
             </Button>
           </div>

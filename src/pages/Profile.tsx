@@ -201,6 +201,7 @@ export default function Profile() {
             <Button
               type="button"
               variant="outline"
+              disabled={isSubmitting}
               onClick={() => {
                 setIsManagerModalOpen(false);
                 reset();

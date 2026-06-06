@@ -80,6 +80,11 @@ export default function ProjectDetails() {
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
   const [isTaskDetailOpen, setIsTaskDetailOpen] = useState(false);
 
+  // Submitting States
+  const [isSubmittingMember, setIsSubmittingMember] = useState(false);
+  const [isSubmittingTask, setIsSubmittingTask] = useState(false);
+  const [isSubmittingTaskEdit, setIsSubmittingTaskEdit] = useState(false);
+
   // Focus Task (for details and comments)
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -271,8 +276,7 @@ export default function ProjectDetails() {
   };
 
   const handleCreateTask = async (data: TaskFormValues) => {
-    setIsTaskModalOpen(false);
-    resetCreateTask();
+    setIsSubmittingTask(true);
     try {
       await api.post(`/projects/${id}/tasks`, {
         title: data.title,
@@ -283,11 +287,14 @@ export default function ProjectDetails() {
         status: "TODO",
       });
       toast.success("Task created successfully");
-      fetchProjectDetails();
+      setIsTaskModalOpen(false);
+      resetCreateTask();
+      await fetchProjectDetails();
     } catch (error) {
       const err = error as { response?: { data?: { message?: string } } };
       toast.error(err.response?.data?.message || "Failed to create task");
-      fetchProjectDetails();
+    } finally {
+      setIsSubmittingTask(false);
     }
   };
 
@@ -314,8 +321,7 @@ export default function ProjectDetails() {
   const handleUpdateTask = async (data: TaskFormValues) => {
     if (!activeTask) return;
 
-    setIsEditTaskOpen(false);
-    resetEditTask();
+    setIsSubmittingTaskEdit(true);
 
     const prevTasks = [...tasks];
     setTasks((prev) =>
@@ -346,11 +352,15 @@ export default function ProjectDetails() {
         status: data.status,
       });
       toast.success("Task updated successfully");
-      fetchProjectDetails();
+      setIsEditTaskOpen(false);
+      resetEditTask();
+      await fetchProjectDetails();
     } catch (error) {
       setTasks(prevTasks);
       const err = error as { response?: { data?: { message?: string } } };
       toast.error(err.response?.data?.message || "Failed to update task");
+    } finally {
+      setIsSubmittingTaskEdit(false);
     }
   };
 
@@ -408,16 +418,18 @@ export default function ProjectDetails() {
   };
 
   const handleAddMember = async (data: AddMemberFormValues) => {
-    setIsAddMemberOpen(false);
-    resetAddMember();
+    setIsSubmittingMember(true);
     try {
       await api.post(`/projects/${id}/members`, { userId: data.userId });
       toast.success("Team member added to project!");
-      fetchProjectDetails();
+      setIsAddMemberOpen(false);
+      resetAddMember();
+      await fetchProjectDetails();
     } catch (error) {
       const err = error as { response?: { data?: { message?: string } } };
       toast.error(err.response?.data?.message || "Failed to add team member");
-      fetchProjectDetails();
+    } finally {
+      setIsSubmittingMember(false);
     }
   };
 
@@ -866,6 +878,7 @@ export default function ProjectDetails() {
             <Button
               type="button"
               variant="outline"
+              disabled={isSubmittingTask}
               onClick={() => {
                 setIsTaskModalOpen(false);
                 resetCreateTask();
@@ -873,7 +886,7 @@ export default function ProjectDetails() {
             >
               Cancel
             </Button>
-            <Button type="submit">
+            <Button type="submit" isLoading={isSubmittingTask}>
               Create Task
             </Button>
           </div>
@@ -968,6 +981,7 @@ export default function ProjectDetails() {
             <Button
               type="button"
               variant="outline"
+              disabled={isSubmittingTaskEdit}
               onClick={() => {
                 setIsEditTaskOpen(false);
                 resetEditTask();
@@ -975,7 +989,7 @@ export default function ProjectDetails() {
             >
               Cancel
             </Button>
-            <Button type="submit">
+            <Button type="submit" isLoading={isSubmittingTaskEdit}>
               Save Changes
             </Button>
           </div>
@@ -1003,7 +1017,8 @@ export default function ProjectDetails() {
               {...registerAddMember("userId", {
                 required: "Please select a user",
               })}
-              className="w-full px-3.5 py-2.5 rounded-lg border border-border-main bg-surface text-text-main text-sm focus:outline-none focus:ring-2 focus:ring-brand/40 cursor-pointer"
+              disabled={isSubmittingMember}
+              className="w-full px-3.5 py-2.5 rounded-lg border border-border-main bg-surface text-text-main text-sm focus:outline-none focus:ring-2 focus:ring-brand/40 cursor-pointer disabled:opacity-50"
             >
               <option value="">-- Choose User --</option>
               {allSystemUsers
@@ -1024,6 +1039,7 @@ export default function ProjectDetails() {
             <Button
               type="button"
               variant="outline"
+              disabled={isSubmittingMember}
               onClick={() => {
                 setIsAddMemberOpen(false);
                 resetAddMember();
@@ -1031,7 +1047,7 @@ export default function ProjectDetails() {
             >
               Cancel
             </Button>
-            <Button type="submit">
+            <Button type="submit" isLoading={isSubmittingMember}>
               Add to Project
             </Button>
           </div>
@@ -1252,15 +1268,15 @@ function TaskCard({
           {task.priority}
         </Badge>
 
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button
-            onClick={onEdit}
-            className="p-1 rounded-md text-text-muted hover:bg-canvas hover:text-text-main transition-colors cursor-pointer"
-            title="Edit Task"
-          >
-            <FiEdit className="h-3.5 w-3.5" />
-          </button>
-          {isManagerOrAdmin && (
+        {isManagerOrAdmin && (
+          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button
+              onClick={onEdit}
+              className="p-1 rounded-md text-text-muted hover:bg-canvas hover:text-text-main transition-colors cursor-pointer"
+              title="Edit Task"
+            >
+              <FiEdit className="h-3.5 w-3.5" />
+            </button>
             <button
               onClick={onDelete}
               className="p-1 rounded-md text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
@@ -1268,8 +1284,8 @@ function TaskCard({
             >
               <FiTrash2 className="h-3.5 w-3.5" />
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="space-y-1.5 text-left">
