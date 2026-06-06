@@ -40,26 +40,26 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Filters
+  
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
   const [deadlineStatus, setDeadlineStatus] = useState("");
   const [sortBy, setSortBy] = useState("latestCreated");
 
-  // Pagination
+  
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Modals state
+  
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Submitting States
+  
   const [isSubmittingCreate, setIsSubmittingCreate] = useState(false);
   const [isSubmittingEdit, setIsSubmittingEdit] = useState(false);
 
-  // Form structures
+  
   interface ProjectFormValues {
     name: string;
     description: string;
@@ -67,7 +67,7 @@ export default function Projects() {
     status: "ACTIVE" | "COMPLETED" | "ON_HOLD";
   }
 
-  // Create Project Form
+  
   const {
     register: registerCreate,
     handleSubmit: handleSubmitCreate,
@@ -82,7 +82,7 @@ export default function Projects() {
     },
   });
 
-  // Edit Project Form
+  
   const {
     register: registerEdit,
     handleSubmit: handleSubmitEdit,
@@ -127,9 +127,9 @@ export default function Projects() {
     }
   }, [search, status, deadlineStatus, sortBy, page]);
 
-  // Since we want this to update whenever filters or paging change, and fetchProjects changes on dependency updates
+  
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    
     fetchProjects();
   }, [fetchProjects]);
 
@@ -232,7 +232,7 @@ export default function Projects() {
 
   return (
     <div className="space-y-6">
-      {/* Title & Add Button */}
+      
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h3 className="font-heading font-extrabold text-2xl text-text-main">Projects Directory</h3>
@@ -246,7 +246,7 @@ export default function Projects() {
         )}
       </div>
 
-      {/* Filters Bar */}
+      
       <div className="bg-surface border border-border-main p-4 rounded-2xl flex flex-col md:flex-row gap-4 items-center justify-between">
         <div className="relative w-full md:max-w-xs">
           <FiSearch className="absolute left-3 top-3.5 h-4 w-4 text-text-muted/60" />
@@ -260,7 +260,7 @@ export default function Projects() {
         </div>
 
         <div className="flex flex-wrap gap-3 w-full md:w-auto items-center justify-end">
-          {/* Status Filter */}
+          
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -272,7 +272,7 @@ export default function Projects() {
             <option value="ON_HOLD">On Hold</option>
           </select>
 
-          {/* Deadline Filter */}
+          
           <select
             value={deadlineStatus}
             onChange={(e) => setDeadlineStatus(e.target.value)}
@@ -283,7 +283,7 @@ export default function Projects() {
             <option value="overdue">Overdue</option>
           </select>
 
-          {/* Sort Filter */}
+          
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -296,7 +296,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Projects Grid */}
+      
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
@@ -428,7 +428,7 @@ export default function Projects() {
         </div>
       )}
 
-      {/* Pagination Footer */}
+      
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-3 pt-4">
           <Button
@@ -453,7 +453,7 @@ export default function Projects() {
         </div>
       )}
 
-      {/* Create Project Modal */}
+      
       <Modal isOpen={isCreateOpen} onClose={() => { setIsCreateOpen(false); resetCreate(); }} title="Create New Project">
         <form onSubmit={handleSubmitCreate(handleCreate)} className="space-y-4">
           <Input
@@ -494,7 +494,7 @@ export default function Projects() {
         </form>
       </Modal>
 
-      {/* Edit Project Modal */}
+      
       <Modal isOpen={isEditOpen} onClose={() => { setIsEditOpen(false); resetEdit(); }} title="Edit Project Details">
         <form onSubmit={handleSubmitEdit(handleUpdate)} className="space-y-4">
           <Input

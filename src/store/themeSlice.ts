@@ -5,7 +5,7 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  mode: "dark", // Default to dark mode for rich premium look
+  mode: "dark", 
 };
 
 export const themeSlice = createSlice({

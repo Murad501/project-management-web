@@ -12,7 +12,7 @@ import {
 import authReducer from "./authSlice";
 import themeReducer from "./themeSlice";
 
-// Custom type-safe storage wrapper to bypass bundler/ESM compatibility issues with redux-persist/lib/storage
+
 const storage = {
   getItem: (key: string): Promise<string | null> => {
     return Promise.resolve(typeof window !== "undefined" ? localStorage.getItem(key) : null);

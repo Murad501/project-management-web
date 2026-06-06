@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const [currentTime, setCurrentTime] = useState("");
 
-  // Clock Update Effect
+  
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return () => clearInterval(interval);
   }, []);
 
-  // Dynamic Browser Tab Title Effect
+  
   useEffect(() => {
     let title = "Project Manager";
     if (location.pathname === "/") {
@@ -88,9 +88,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-canvas text-text-main">
-      {/* Desktop Sidebar */}
+      
       <aside className="hidden md:flex flex-col w-64 bg-surface border-r border-border-main shrink-0 h-full">
-        {/* Sidebar Header */}
+        
         <div className="flex items-center gap-3 px-6 h-16 border-b border-border-main shrink-0">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand text-white font-bold text-lg shadow-lg shadow-brand/20">
             P
@@ -103,7 +103,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        {/* Sidebar Nav */}
+        
         <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -141,7 +141,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       </aside>
 
-      {/* Mobile drawer backdrop */}
+      
       {isMobileOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
@@ -149,7 +149,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         />
       )}
 
-      {/* Mobile Drawer */}
+      
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex flex-col w-64 bg-surface border-r border-border-main transition-transform duration-300 md:hidden h-full ${
           isMobileOpen ? "translate-x-0" : "-translate-x-full"
@@ -203,9 +203,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       </aside>
 
-      {/* Main Content Area */}
+      
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
-        {/* Top Header */}
+        
         <header className="flex h-16 items-center justify-between border-b border-border-main bg-surface px-6 shrink-0 z-10">
           <div className="flex items-center gap-4">
             <button
@@ -249,7 +249,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        {/* Dynamic page contents */}
+        
         <main className="flex-1 overflow-y-auto bg-canvas p-6 md:p-8">
           <div className="max-w-7xl mx-auto space-y-6">{children}</div>
         </main>

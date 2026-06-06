@@ -50,7 +50,7 @@ interface Task {
   _id: string;
   title: string;
   description: string;
-  assignedMember: string | User | null; // can be populated user
+  assignedMember: string | User | null; 
   dueDate: string;
   priority: "HIGH" | "MEDIUM" | "LOW";
   status: "TODO" | "IN_PROGRESS" | "COMPLETED";
@@ -74,22 +74,22 @@ export default function ProjectDetails() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // Modals
+  
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
   const [isTaskDetailOpen, setIsTaskDetailOpen] = useState(false);
 
-  // Submitting States
+  
   const [isSubmittingMember, setIsSubmittingMember] = useState(false);
   const [isSubmittingTask, setIsSubmittingTask] = useState(false);
   const [isSubmittingTaskEdit, setIsSubmittingTaskEdit] = useState(false);
 
-  // Focus Task (for details and comments)
+  
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
 
-  // Form interfaces
+  
   interface TaskFormValues {
     title: string;
     description: string;
@@ -107,7 +107,7 @@ export default function ProjectDetails() {
     content: string;
   }
 
-  // Create Task Form
+  
   const {
     register: registerCreateTask,
     handleSubmit: handleSubmitCreateTask,
@@ -124,7 +124,7 @@ export default function ProjectDetails() {
     },
   });
 
-  // Edit Task Form
+  
   const {
     register: registerEditTask,
     handleSubmit: handleSubmitEditTask,
@@ -141,7 +141,7 @@ export default function ProjectDetails() {
     },
   });
 
-  // Add Member Form
+  
   const {
     register: registerAddMember,
     handleSubmit: handleSubmitAddMember,
@@ -153,7 +153,7 @@ export default function ProjectDetails() {
     },
   });
 
-  // Add Comment Form
+  
   const {
     register: registerAddComment,
     handleSubmit: handleSubmitAddComment,
@@ -195,12 +195,12 @@ export default function ProjectDetails() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    
     fetchProjectDetails();
     if (isManagerOrAdmin) {
       fetchAllUsers();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [id]);
 
   useEffect(() => {
@@ -209,7 +209,7 @@ export default function ProjectDetails() {
     }
   }, [project?.name]);
 
-  // Fetch comments when active task changes or modal opens
+  
   const fetchComments = async (taskId: string) => {
     try {
       const response = await api.get(
@@ -234,7 +234,7 @@ export default function ProjectDetails() {
     const newCommentContent = data.content;
     resetAddComment();
 
-    // Optimistic Update
+    
     const prevComments = [...comments];
     const tempComment: Comment = {
       _id: `temp-comment-${++tempIdCounter}`,
@@ -459,7 +459,7 @@ export default function ProjectDetails() {
   if (isLoading) {
     return (
       <div className="space-y-8 animate-pulse">
-        {/* Header meta card skeleton */}
+        
         <div className="bg-surface border border-border-main p-6 rounded-2xl space-y-6">
           <div className="space-y-3">
             <div className="h-7 w-1/3 bg-canvas rounded-lg" />
@@ -479,7 +479,7 @@ export default function ProjectDetails() {
           </div>
         </div>
 
-        {/* Kanban Board skeleton */}
+        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
           {[...Array(4)].map((_, colIdx) => (
             <div key={colIdx} className="bg-surface/50 border border-border-main/50 p-4 rounded-2xl space-y-4">
@@ -519,7 +519,7 @@ export default function ProjectDetails() {
     );
   }
 
-  // Filter tasks into columns
+  
   const todoTasks = tasks.filter((t) => t.status === "TODO");
   const inProgressTasks = tasks.filter((t) => t.status === "IN_PROGRESS");
   const completedTasks = tasks.filter((t) => t.status === "COMPLETED");
@@ -531,14 +531,14 @@ export default function ProjectDetails() {
   const getMemberName = (assigned: Task["assignedMember"]) => {
     if (!assigned) return "Unassigned";
     if (typeof assigned === "object") return assigned.name;
-    // Otherwise look up in members list
+    
     const found = members.find((m) => m._id === assigned);
     return found ? found.name : "Unassigned";
   };
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Header Back Button */}
+      
       <div>
         <Link
           to="/projects"
@@ -549,7 +549,7 @@ export default function ProjectDetails() {
         </Link>
       </div>
 
-      {/* Project Meta Card */}
+      
       <div className="bg-surface border border-border-main p-6 md:p-8 rounded-2xl shadow-sm space-y-6">
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
           <div className="space-y-2">
@@ -595,9 +595,9 @@ export default function ProjectDetails() {
           </div>
         </div>
 
-        {/* Project Progress & Team Row (Stacked) */}
+        
         <div className="space-y-4.5 pt-4.5 border-t border-border-main/50 text-left">
-          {/* Team Members List */}
+          
           <div className="space-y-2.5">
             <div className="flex justify-between items-center">
               <span className="font-bold text-text-muted uppercase tracking-wider text-[10px]">
@@ -654,7 +654,7 @@ export default function ProjectDetails() {
             </div>
           </div>
 
-          {/* Progress Bar */}
+          
           <div className="space-y-2 pt-2 border-t border-border-main/30">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-text-muted uppercase tracking-wider text-[10px]">
@@ -674,7 +674,7 @@ export default function ProjectDetails() {
           </div>
         </div>
 
-        {/* Deadline History Section */}
+        
         {project.previousDeadlines && project.previousDeadlines.length > 0 && (
           <div className="bg-canvas/40 border border-border-main p-4 rounded-xl space-y-3">
             <p className="text-xs font-bold text-text-main uppercase tracking-wider flex items-center gap-1.5">
@@ -725,9 +725,9 @@ export default function ProjectDetails() {
           )}
         </div>
 
-        {/* Kanban Columns Grid */}
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
-          {/* Column TO DO */}
+          
           <div className="bg-canvas border border-border-main p-4 rounded-2xl flex flex-col space-y-4 h-fit">
             <div className="flex items-center justify-between border-b border-border-main pb-2">
               <span className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
@@ -752,7 +752,7 @@ export default function ProjectDetails() {
             </div>
           </div>
 
-          {/* Column IN PROGRESS */}
+          
           <div className="bg-canvas border border-border-main p-4 rounded-2xl flex flex-col space-y-4 h-fit">
             <div className="flex items-center justify-between border-b border-border-main pb-2">
               <span className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
@@ -777,7 +777,7 @@ export default function ProjectDetails() {
             </div>
           </div>
 
-          {/* Column COMPLETED */}
+          
           <div className="bg-canvas border border-border-main p-4 rounded-2xl flex flex-col space-y-4 h-fit">
             <div className="flex items-center justify-between border-b border-border-main pb-2">
               <span className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
@@ -805,7 +805,7 @@ export default function ProjectDetails() {
         </div>
       </div>
 
-      {/* Task Creation Modal */}
+      
       <Modal
         isOpen={isTaskModalOpen}
         onClose={() => {
@@ -893,7 +893,7 @@ export default function ProjectDetails() {
         </form>
       </Modal>
 
-      {/* Edit Task Modal */}
+      
       <Modal
         isOpen={isEditTaskOpen}
         onClose={() => {
@@ -996,7 +996,7 @@ export default function ProjectDetails() {
         </form>
       </Modal>
 
-      {/* Add Project Member Modal */}
+      
       <Modal
         isOpen={isAddMemberOpen}
         onClose={() => {
@@ -1054,7 +1054,7 @@ export default function ProjectDetails() {
         </form>
       </Modal>
 
-      {/* Task Details and Comments Modal */}
+      
       <Modal
         isOpen={isTaskDetailOpen}
         onClose={() => {
@@ -1066,7 +1066,7 @@ export default function ProjectDetails() {
       >
         {activeTask && (
           <div className="space-y-6">
-            {/* Task summary details */}
+            
             <div className="bg-canvas border border-border-main p-4 rounded-xl space-y-3.5 text-sm">
               <h4 className="font-heading font-extrabold text-lg text-text-main leading-tight">
                 {activeTask.title}
@@ -1130,14 +1130,14 @@ export default function ProjectDetails() {
               </div>
             </div>
 
-            {/* Task comments box */}
+            
             <div className="space-y-4">
               <h5 className="font-heading font-bold text-sm text-text-main flex items-center gap-2 pb-2 border-b border-border-main">
                 <FiMessageSquare className="h-4.5 w-4.5 text-brand" /> Comments
                 & Discussions ({comments.length})
               </h5>
 
-              {/* Comments list */}
+              
               <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
                 {comments.length === 0 ? (
                   <p className="text-xs text-text-muted text-center py-4">
@@ -1179,7 +1179,7 @@ export default function ProjectDetails() {
                 )}
               </div>
 
-              {/* Comment submission form */}
+              
               <form
                 onSubmit={handleSubmitAddComment(handleAddComment)}
                 className="flex gap-2"
@@ -1206,7 +1206,7 @@ export default function ProjectDetails() {
   );
 }
 
-// Kanban Task Card helper component
+
 interface TaskCardProps {
   task: Task;
   onClick: () => void;
@@ -1321,7 +1321,7 @@ function TaskCard({
           </span>
         </div>
 
-        {/* Task column transition selector */}
+        
         <div
           className="flex justify-end gap-1.5 pt-1"
           onClick={(e) => e.stopPropagation()}

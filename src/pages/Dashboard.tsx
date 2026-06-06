@@ -84,24 +84,24 @@ export default function Dashboard() {
   if (isLoading) {
     return (
       <div className="space-y-8 animate-pulse">
-        {/* Welcome banner skeleton */}
+        
         <div className="bg-surface/50 border border-border-main p-6 rounded-2xl h-24 bg-surface" />
 
-        {/* KPI Grid skeleton */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {[...Array(5)].map((_, i) => (
             <div key={i} className="bg-surface border border-border-main p-5 rounded-2xl flex items-center justify-between h-24 bg-surface" />
           ))}
         </div>
 
-        {/* Charts/Lists grid skeleton */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="bg-surface border border-border-main p-6 rounded-2xl h-64 bg-surface" />
           ))}
         </div>
 
-        {/* Recent logs skeleton */}
+        
         <div className="bg-surface border border-border-main p-6 rounded-2xl h-80 bg-surface" />
       </div>
     );
@@ -152,7 +152,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Welcome banner */}
+      
       <div className="bg-surface/50 border border-border-main p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h3 className="font-heading font-extrabold text-2xl text-text-main">
@@ -164,7 +164,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* KPI Grid */}
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
         {kpiCards.map((card, idx) => {
           const Icon = card.icon;
@@ -190,13 +190,13 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Task Priority Distribution Card */}
+        
         <div className="bg-surface border border-border-main p-6 rounded-2xl space-y-6 shadow-sm shadow-black/5">
           <h4 className="font-heading font-bold text-lg text-text-main">
             Tasks by Priority
           </h4>
           <div className="space-y-4">
-            {/* High Priority */}
+            
             <div>
               <div className="flex justify-between text-sm mb-1.5">
                 <span className="font-medium text-text-muted flex items-center gap-1.5">
@@ -216,7 +216,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Medium Priority */}
+            
             <div>
               <div className="flex justify-between text-sm mb-1.5">
                 <span className="font-medium text-text-muted flex items-center gap-1.5">
@@ -238,7 +238,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Low Priority */}
+            
             <div>
               <div className="flex justify-between text-sm mb-1.5">
                 <span className="font-medium text-text-muted flex items-center gap-1.5">
@@ -260,13 +260,13 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Task Status Distribution Card */}
+        
         <div className="bg-surface border border-border-main p-6 rounded-2xl space-y-6 shadow-sm shadow-black/5">
           <h4 className="font-heading font-bold text-lg text-text-main">
             Tasks by Status
           </h4>
           <div className="space-y-4">
-            {/* TO DO */}
+            
             <div>
               <div className="flex justify-between text-sm mb-1.5">
                 <span className="font-medium text-text-muted flex items-center gap-1.5">
@@ -288,7 +288,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* IN PROGRESS */}
+            
             <div>
               <div className="flex justify-between text-sm mb-1.5">
                 <span className="font-medium text-text-muted flex items-center gap-1.5">
@@ -312,7 +312,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* COMPLETED */}
+            
             <div>
               <div className="flex justify-between text-sm mb-1.5">
                 <span className="font-medium text-text-muted flex items-center gap-1.5">
@@ -338,7 +338,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Member Workload Card */}
+        
         <div className="bg-surface border border-border-main p-6 rounded-2xl space-y-4 shadow-sm shadow-black/5 overflow-hidden flex flex-col">
           <h4 className="font-heading font-bold text-lg text-text-main flex items-center gap-2">
             <FiUserCheck className="h-5 w-5 text-brand" /> Member Workload
@@ -375,7 +375,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Recent Activities Section */}
+      
       <div className="bg-surface border border-border-main p-6 rounded-2xl space-y-6 shadow-sm shadow-black/5">
         <h4 className="font-heading font-bold text-lg text-text-main flex items-center gap-2">
           <FiActivity className="h-5 w-5 text-brand" /> Recent Operations Log
@@ -386,7 +386,7 @@ export default function Dashboard() {
           ) : (
             recentActivities.map((log) => (
               <div key={log._id} className="relative group">
-                {/* Timeline node */}
+                
                 <div className="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-brand bg-surface group-hover:bg-brand transition-colors duration-200" />
                 <div className="space-y-1">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">

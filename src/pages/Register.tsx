@@ -50,7 +50,7 @@ export default function Register() {
 
   return (
     <div className="relative min-h-screen w-screen flex items-center justify-center bg-canvas p-4 overflow-hidden">
-      {/* Decorative gradient glowing bubbles */}
+      
       <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] rounded-full bg-brand/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40rem] h-[40rem] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
 

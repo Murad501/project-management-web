@@ -21,7 +21,7 @@ export default function Profile() {
   const user = useSelector((state: RootState) => state.auth.user);
   const themeMode = useSelector((state: RootState) => state.theme.mode);
 
-  // Manager Creation Modal (Admin only)
+  
   const [isManagerModalOpen, setIsManagerModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -59,14 +59,14 @@ export default function Profile() {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Title Header */}
+      
       <div>
         <h3 className="font-heading font-extrabold text-2xl text-text-main">My Settings & Profile</h3>
         <p className="text-text-muted text-sm mt-0.5">Manage your personal settings and configuration details.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* User Card */}
+        
         <div className="md:col-span-2 space-y-6">
           <div className="bg-surface border border-border-main p-6 md:p-8 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center gap-6">
             <div className="h-20 w-20 rounded-full bg-brand/10 text-brand border border-brand/20 flex items-center justify-center font-bold text-3xl font-heading shadow-md">
@@ -99,7 +99,7 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* Preferences Card */}
+          
           <div className="bg-surface border border-border-main p-6 md:p-8 rounded-2xl shadow-sm space-y-6">
             <h4 className="font-heading font-bold text-lg text-text-main flex items-center gap-2 pb-3 border-b border-border-main">
               <FiSliders className="h-5 w-5 text-brand" /> Interface Settings
@@ -117,7 +117,7 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Administration Sidebar (Visible to Admin roles) */}
+        
         <div className="space-y-6">
           {isAdmin ? (
             <div className="bg-surface border border-border-main p-6 rounded-2xl shadow-sm space-y-4">

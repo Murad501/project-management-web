@@ -16,7 +16,7 @@ interface ActivityLog {
   _id: string;
   projectId?: string;
   details?: string;
-  message?: string; // Sometimes details or message
+  message?: string; 
   timestamp: string;
   userId?: User;
 }
@@ -40,7 +40,7 @@ export default function ActivityLogs() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    
     fetchLogs();
   }, []);
 
@@ -51,7 +51,7 @@ export default function ActivityLogs() {
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      {/* Title Header */}
+      
       <div>
         <h3 className="font-heading font-extrabold text-2xl text-text-main">Audit Trails & Activity Logs</h3>
         <p className="text-text-muted text-sm mt-0.5">
@@ -59,7 +59,7 @@ export default function ActivityLogs() {
         </p>
       </div>
 
-      {/* Filter panel */}
+      
       <div className="bg-surface border border-border-main p-4 rounded-2xl flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3 w-full max-w-sm">
           <FiUser className="text-text-muted/60 shrink-0" />
@@ -76,7 +76,7 @@ export default function ActivityLogs() {
         </Button>
       </div>
 
-      {/* Logs View */}
+      
       {isLoading ? (
         <div className="bg-surface border border-border-main p-6 md:p-8 rounded-2xl shadow-sm space-y-8 animate-pulse">
           <div className="relative border-l border-border-main pl-6 ml-2 space-y-8">
@@ -108,7 +108,7 @@ export default function ActivityLogs() {
 
               return (
                 <div key={log._id} className="relative group">
-                  {/* Outer timeline indicator */}
+                  
                   <div className="absolute -left-[31px] top-1.5 h-4.5 w-4.5 rounded-full border-2 border-brand bg-surface flex items-center justify-center group-hover:bg-brand transition-all duration-200">
                     <div className="h-1.5 w-1.5 bg-brand rounded-full group-hover:bg-surface" />
                   </div>

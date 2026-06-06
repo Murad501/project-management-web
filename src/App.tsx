@@ -16,13 +16,13 @@ import Profile from "./pages/Profile";
 function AppContent() {
   return (
     <Routes>
-      {/* Public Routes */}
+      
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
 
-      {/* Private Routes */}
+      
       <Route element={<PrivateRoute />}>
         <Route
           path="/"
@@ -66,7 +66,7 @@ function AppContent() {
         />
       </Route>
 
-      {/* Catch-all redirects to Home */}
+      
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

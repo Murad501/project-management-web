@@ -83,12 +83,12 @@ export default function Login() {
 
   return (
     <div className="relative min-h-screen w-screen flex items-center justify-center bg-canvas p-4 overflow-hidden">
-      {/* Decorative gradient glowing bubbles for rich aesthetics */}
+      
       <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] rounded-full bg-brand/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40rem] h-[40rem] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
 
       <div className="w-full max-w-md z-10">
-        {/* Branding header */}
+        
         <div className="text-center mb-8">
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white font-bold text-2xl shadow-xl shadow-brand/35 mb-4">
             P
@@ -101,9 +101,9 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Login Card */}
+        
         <div className="bg-surface/80 backdrop-blur-md border border-border-main p-8 rounded-2xl shadow-xl shadow-black/5">
-          {/* Tab Switcher */}
+          
           <div className="flex bg-canvas p-1 rounded-xl border border-border-main mb-6">
             <button
               type="button"
@@ -210,7 +210,7 @@ export default function Login() {
             </Button>
           </form>
 
-          {/* Direct link to register */}
+          
           <div className="mt-6 text-center text-xs text-text-muted">
             Don't have an account?{" "}
             <Link
